@@ -1,0 +1,59 @@
+<h1>
+  @if (isEdit) {
+    Edit Job Ad
+  }
+  @else if (!isEdit) {
+    Create New Job Ad
+  }
+</h1>
+
+<form [formGroup]="jobAdForm" (ngSubmit)="onSubmit()">
+  <div fxLayout="column" fxLayoutAlign="space-between stretch">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+      @if (jobAdForm.get('title')?.hasError('required')) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      @if (jobAdForm.get('description')?.hasError('required')) {
+        <mat-error>Description is required</mat-error>
+      }
+      @if (jobAdForm.get('description')?.hasError('minlength')) {
+        <mat-error>Description must be at least 10 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Skills (comma separated)</mat-label>
+      <input matInput formControlName="skills">
+      @if (jobAdForm.get('skills')?.hasError('required')) {
+        <mat-error>Skills are required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="draft">Draft</mat-option>
+        <mat-option value="published">Published</mat-option>
+        <mat-option value="archived">Archived</mat-option>
+      </mat-select>
+      @if (jobAdForm.get('status')?.hasError('required')) {
+        <mat-error>Status is required</mat-error>
+      }
+      @if (isEdit) {
+        <mat-hint>Status change is disabled in edit mode.</mat-hint>
+      }
+    </mat-form-field>
+    
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-raised-button [routerLink]="['/job-ads']">Back</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!jobAdForm.valid">Submit</button>
+    </div>
+  </div>
+</form>

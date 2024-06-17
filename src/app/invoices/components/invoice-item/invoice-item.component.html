@@ -1,0 +1,11 @@
+@if (invoice$ | async) {
+  <mat-list role="list">
+    <mat-list-item role="listitem">ID: {{ (invoice$ | async)?.id }}</mat-list-item>
+    <mat-list-item role="listitem">Job Ad ID: {{ (invoice$ | async)?.jobAdId }}</mat-list-item>
+    <mat-list-item role="listitem">Amount: {{ (invoice$ | async)?.amount }}</mat-list-item>
+    <mat-list-item role="listitem">Due Date: {{ (invoice$ | async)?.dueDate | date }}</mat-list-item>
+  </mat-list>
+} @else {
+  <p>Invalid invoice.</p>
+}
+

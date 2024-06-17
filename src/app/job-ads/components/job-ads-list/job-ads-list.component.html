@@ -1,0 +1,45 @@
+<h1>Job Ads</h1>
+
+<mat-form-field fxFill appearance="fill">
+  <mat-label>Search Job Ads</mat-label>
+  <input matInput [formControl]="searchControl" placeholder="Enter at least 3 characters">
+</mat-form-field>
+
+<div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+  @for (jobAd of (vm$ | async)?.jobAds; track jobAd) {
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ jobAd.title }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Status: {{ jobAd.status }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <job-ad-item [id]="jobAd.id"></job-ad-item>
+    
+      <mat-action-row>
+        <div fxFill fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+          <div>
+            @if (jobAd.status === 'draft') {
+              <button mat-button color="warn" (click)="onChangeStatus(jobAd.id, 'archived')">Archive</button>
+              <button mat-button color="primary" (click)="onChangeStatus(jobAd.id, 'published')">Publish</button>
+            }
+            @else if (jobAd.status === 'published') {
+              <button mat-button color="warn" (click)="onChangeStatus(jobAd.id, 'archived')">Archive</button>
+            }
+          </div>
+          <div>
+            <button mat-button color="primary" [routerLink]="['/job-ads/edit', jobAd.id]">Edit</button>
+            <button mat-button color="warn" (click)="onDelete(jobAd)">Delete</button>
+          </div>
+        </div>
+      </mat-action-row>
+    </mat-expansion-panel>
+  } @empty {
+    <p>No job ads found.</p>
+  }
+  
+  <button mat-raised-button color="primary" routerLink="/job-ads/create">Create Job Ad</button>
+</div>

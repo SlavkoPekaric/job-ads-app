@@ -1,0 +1,25 @@
+<div class="header">
+  <mat-toolbar color="primary" class="toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <a mat-button routerLink="/job-ads">Job Ads</a>
+      <a mat-button routerLink="/invoices">Invoices</a>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>Profile</button>
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+</div>
+
+<div class="content" fxLayout="row" fxLayoutAlign="center start">
+  <div class="content-container">
+    <!-- Your content goes here -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

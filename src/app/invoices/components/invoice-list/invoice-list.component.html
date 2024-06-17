@@ -1,0 +1,30 @@
+<h1>Invoices</h1>
+
+<div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="20px">
+  @for (invoice of invoices$ | async; track invoice) {
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Invoice #{{ invoice.id }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Job Ad ID: {{ invoice.jobAdId }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start" fxLayout.lt-md="column" fxLayoutAlign="space-between stretch">
+        <div fxFlex="50">
+          <h3>Invoice Data:</h3>
+          <invoice-item [id]="invoice.id"></invoice-item>
+        </div>
+
+        <div fxFlex="50">
+          <h3>Job Data:</h3>
+          <job-ad-item [id]="invoice.jobAdId" [editToggle]="true"></job-ad-item>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  } @empty {
+    <p>No invoices found.</p>
+  }
+</div>

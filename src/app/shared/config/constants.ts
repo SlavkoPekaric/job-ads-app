@@ -1,0 +1,1 @@
+export const JOB_INVOICE_DEFAULT_PRICE = 100;

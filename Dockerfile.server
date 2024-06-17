@@ -1,0 +1,18 @@
+# Use the official Node.js image as the base image
+FROM node:14
+
+# Create and change to the app directory
+WORKDIR /usr/src/app
+
+# Install dependencies
+RUN npm install --silent express body-parser cors morgan
+
+# Copy the rest of the application code to the working directory
+COPY mock-data-server.js ./mock-data-server.js
+COPY src/assets/db/db.json ./src/assets/db/db.json
+
+# Expose the port the app runs on
+EXPOSE 3002
+
+# Define the command to run the app
+CMD ["node", "mock-data-server.js"]
